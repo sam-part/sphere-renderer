@@ -1,0 +1,18 @@
+# ninja log v6
+1	849	1729268042555689641	CMakeFiles/sphere-renderer.dir/sphere.cpp.o	fed214870ecfa1e7
+1138	1392	1729268402833763189	sphere-renderer	70750b968dda4056
+2	1565	1729267380729240086	CMakeFiles/sphere-renderer.dir/main.cpp.o	e8c598ca9f4165c
+3	2145	1729267380730240083	CMakeFiles/sphere-renderer.dir/imgui/imgui_widgets.cpp.o	d9077cf2d5e14212
+3	1885	1729267380730240083	CMakeFiles/sphere-renderer.dir/imgui/imgui_draw.cpp.o	3bb6eadb0ef2683e
+3	1138	1729268401698761661	CMakeFiles/sphere-renderer.dir/application.cpp.o	88801ca41d175eb4
+2	900	1729267380729240086	CMakeFiles/sphere-renderer.dir/shader.cpp.o	2be1e9b233cbefd5
+3	1517	1729267380730240083	CMakeFiles/sphere-renderer.dir/imgui/imgui_tables.cpp.o	9d19a0d3b5e6d177
+3	1684	1729267380730240083	CMakeFiles/sphere-renderer.dir/imgui/imgui-SFML.cpp.o	8024e8ff37d6a712
+2	1027	1729267380729240086	CMakeFiles/sphere-renderer.dir/camera.cpp.o	803d594284c257cd
+1	78	1729268472366832793	build.ninja	7d92aa1c90fd1ee2
+3	2466	1729267380730240083	CMakeFiles/sphere-renderer.dir/imgui/imgui.cpp.o	759d79c18c906ebb
+1	68	1729268472366832793	build.ninja	7d92aa1c90fd1ee2
+2	4	1729268472373832798	CMakeFiles/copy_directory	f6d6333216974ba2
+2	4	1729268472373832798	/home/sam/src/cpp/sphere-renderer/cmake-build-debug/CMakeFiles/copy_directory	f6d6333216974ba2
+2	5	1729268479433837354	CMakeFiles/copy_directory	f6d6333216974ba2
+2	5	1729268479433837354	/home/sam/src/cpp/sphere-renderer/cmake-build-debug/CMakeFiles/copy_directory	f6d6333216974ba2

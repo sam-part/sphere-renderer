@@ -1,0 +1,11 @@
+/home/sam/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=/home/sam/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/ninja -DCMAKE_TOOLCHAIN_FILE=/home/sam/.vcpkg-clion/vcpkg/scripts/buildsystems/vcpkg.cmake -G Ninja -S /home/sam/src/cpp/sphere-renderer -B /home/sam/src/cpp/sphere-renderer/cmake-build-release
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found ZLIB: optimized;/home/sam/.vcpkg-clion/vcpkg/installed/x64-linux/lib/libz.a;debug;/home/sam/.vcpkg-clion/vcpkg/installed/x64-linux/debug/lib/libz.a (found version "1.3.1")  
+-- Found BZip2: optimized;/home/sam/.vcpkg-clion/vcpkg/installed/x64-linux/lib/libbz2.a;debug;/home/sam/.vcpkg-clion/vcpkg/installed/x64-linux/debug/lib/libbz2d.a (found version "1.0.8") 
+-- Looking for BZ2_bzCompressInit
+-- Looking for BZ2_bzCompressInit - found
+-- Found PNG: optimized;/home/sam/.vcpkg-clion/vcpkg/installed/x64-linux/lib/libpng16.a;debug;/home/sam/.vcpkg-clion/vcpkg/installed/x64-linux/debug/lib/libpng16d.a (found version "1.6.43") 
+-- Found SFML 2.6.1 in /home/sam/.vcpkg-clion/vcpkg/installed/x64-linux/share/sfml
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/sam/src/cpp/sphere-renderer/cmake-build-release
