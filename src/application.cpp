@@ -1,8 +1,8 @@
 #include "application.h"
+#include "imgui/imgui.h"
 #include <glm/gtc/type_ptr.hpp>
 #include <chrono>
 #include <iostream>
-#include "imgui/imgui.h"
 
 Application::Application()
 {
