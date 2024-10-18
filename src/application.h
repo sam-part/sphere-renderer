@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <GL/glew.h>
 #include <string>
 #include "camera.h"
 #include "sphere.h"

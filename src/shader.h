@@ -1,13 +1,12 @@
 #pragma once
 
 #include <string>
-#include <GL/glew.h>
 
 class Shader
 {
 public:
 	Shader() = default;
-	Shader(std::string vertexPath, std::string fragmentPath);
+	Shader(const std::string& vertexPath, const std::string& fragmentPath);
 
 	void use();
 

@@ -68,7 +68,7 @@ void Sphere::generateIcosphere()
 void Sphere::generateCubesphere()
 {
 	// Ensure all points have a constant distance of 1 to the origin
-	float position = 1.0f / std::sqrt(3.0);
+	float position = 1.0f / std::sqrt(3.0f);
 
 	vertices = {
 		-position, -position, -position,
@@ -99,20 +99,20 @@ void Sphere::generateSectorsphere(unsigned int sectors, unsigned int stacks)
 	vertices.clear();
 	indices.clear();
 
-	int numVertices = (sectors + 1) * (stacks + 1);
+	unsigned int numVertices = (sectors + 1) * (stacks + 1);
 
 	for (int i = 0; i <= stacks; i++)
 	{
 		// Stack angles range from pi/2 to -pi/2
-		const float phi = 0.5f * pi - pi * (static_cast<float>(i) / stacks);
+		const float phi = 0.5f * pi - pi * (static_cast<float>(i) / static_cast<float>(stacks));
 
-		int stackIndex = i * (sectors + 1);
-		int nextStackIndex = (i + 1) * (sectors + 1);
+		unsigned int stackIndex = i * (sectors + 1);
+		unsigned int nextStackIndex = (i + 1) * (sectors + 1);
 
 		for (int j = 0; j <= sectors; j++)
 		{
 			// Sector angles range from 0 to 2pi 
-			const float theta = 2.0f * pi * (static_cast<float>(j) / sectors);
+			const float theta = 2.0f * pi * (static_cast<float>(j) / static_cast<float>(sectors));
 
 			glm::vec3 vertex {};
 			vertex.x = std::cos(phi) * std::cos(theta);
@@ -154,7 +154,7 @@ void Sphere::subdivide(unsigned int newSubdivisions)
 			generateSectorsphere(sectors, stacks);
 	}
 
-	for (int i = subdivisions; i < newSubdivisions; i++)
+	for (unsigned int i = subdivisions; i < newSubdivisions; i++)
 	{
 		std::vector<float> oldVertices = vertices;
 		std::vector<unsigned int> oldIndices = indices;
@@ -198,7 +198,7 @@ void Sphere::subdivide(unsigned int newSubdivisions)
 	subdivisions = newSubdivisions;
 }
 
-int Sphere::getSubdivisionLevel() const
+unsigned int Sphere::getSubdivisionLevel() const
 {
 	return subdivisions;
 }
@@ -208,12 +208,18 @@ void Sphere::sendBufferData()
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0]) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER,
+		static_cast<GLsizeiptr>(sizeof(vertices[0]) * vertices.size()),
+		vertices.data(),
+		GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices[0]) * indices.size(), indices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+		static_cast<GLsizeiptr>(sizeof(indices[0]) * indices.size()),
+		indices.data(),
+		GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 	glEnableVertexAttribArray(0);
 }
 
@@ -221,14 +227,17 @@ void Sphere::render(Shader& shader, int modelLocation)
 {
 	glBindVertexArray(VAO);
 
-	glm::mat4 model = glm::mat4(1.0f);
+	glm::mat4 model(1.0f);
 	model = glm::translate(model, position);
 	model = glm::rotate(model, rotationAngle, rotationAxis);
 	model = glm::scale(model, glm::vec3(radius, radius, radius));
 
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
 
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES,
+		static_cast<GLsizei>(indices.size()),
+		GL_UNSIGNED_INT,
+		nullptr);
 
 	glBindVertexArray(0);
 }
@@ -273,12 +282,12 @@ size_t Sphere::getTriangleCount() const
 	return indices.size() / 3;
 }
 
-int Sphere::getSectors() const
+unsigned int Sphere::getSectors() const
 {
 	return sectors;
 }
 
-int Sphere::getStacks() const
+unsigned int Sphere::getStacks() const
 {
 	return stacks;
 }

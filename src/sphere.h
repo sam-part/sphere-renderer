@@ -23,7 +23,7 @@ public:
     void generateSectorsphere(unsigned int sectors, unsigned int stacks);
 
     void subdivide(unsigned int subdivisions);
-    int getSubdivisionLevel() const;
+    unsigned int getSubdivisionLevel() const;
 
     // Sends data to GPU
     void sendBufferData();
@@ -42,12 +42,12 @@ public:
     size_t getVertexCount() const;
     size_t getTriangleCount() const;
 
-    int getSectors() const;
-    int getStacks() const;
+    unsigned int getSectors() const;
+    unsigned int getStacks() const;
 
 private:
     // Find the midpoint betwen two vertices with constant distsancce from center
-    glm::vec3 findMidpoint(const glm::vec3& a, const glm::vec3& b);
+    static glm::vec3 findMidpoint(const glm::vec3& a, const glm::vec3& b);
 
     void addVertex(glm::vec3 vertex);
     void addVertex(float x, float y, float z);
@@ -57,8 +57,8 @@ private:
     unsigned int subdivisions = 0;
 
     SphereType type = SphereType::IcoSphere;
-    int sectors {};
-    int stacks {};
+    unsigned int sectors {};
+    unsigned int stacks {};
 
     std::vector<float> vertices {};
     std::vector<unsigned int> indices {};

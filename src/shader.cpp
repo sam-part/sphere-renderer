@@ -8,7 +8,7 @@
 unsigned int compileShader(const char* source, GLenum type)
 {
 	unsigned int shader = glCreateShader(type);
-	glShaderSource(shader, 1, &source, NULL);
+	glShaderSource(shader, 1, &source, nullptr);
 	glCompileShader(shader);
 
 	int success;
@@ -17,7 +17,7 @@ unsigned int compileShader(const char* source, GLenum type)
 	if (!success)
 	{
 		char infoLog[512];
-		glGetShaderInfoLog(shader, sizeof(infoLog), NULL, infoLog);
+		glGetShaderInfoLog(shader, sizeof(infoLog), nullptr, infoLog);
 
 		std::cout << "Shader compilation failed (Type: " + std::to_string(type) + ")\n";
 		std::cout << infoLog << "\n";
@@ -26,7 +26,7 @@ unsigned int compileShader(const char* source, GLenum type)
 	return shader;
 }
 
-Shader::Shader(std::string vertexPath, std::string fragmentPath)
+Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 {
 	std::ifstream vertexInput(vertexPath);
 	std::ifstream fragmentInput(fragmentPath);
@@ -65,7 +65,7 @@ Shader::Shader(std::string vertexPath, std::string fragmentPath)
 	if (!success)
 	{
 		char infoLog[512];
-		glGetProgramInfoLog(id, sizeof(infoLog), NULL, infoLog);
+		glGetProgramInfoLog(id, sizeof(infoLog), nullptr, infoLog);
 
 		std::cout << "Failed to link shader program\n";
 		std::cout << infoLog << "\n";

@@ -1,7 +1,6 @@
 #include "application.h"
 #include "imgui/imgui.h"
 #include <glm/gtc/type_ptr.hpp>
-#include <chrono>
 #include <iostream>
 
 Application::Application()
@@ -12,8 +11,8 @@ Application::Application()
     settings.minorVersion = 3;
     settings.depthBits = 24;
     settings.stencilBits = 8;
-    settings.antialiasingLevel = 8;
-    //settings.attributeFlags |= sf::ContextSettings::Core;
+    settings.antialiasingLevel = 4;
+    // settings.attributeFlags |= sf::ContextSettings::Core;
 
     window.create(sf::VideoMode(defaultWidth, defaultHeight), windowName.c_str(), sf::Style::Default, settings);
     window.setVerticalSyncEnabled(true);
@@ -28,11 +27,18 @@ Application::Application()
     window.setActive(true);
     
     sf::Vector2u windowSize = window.getSize();
-    sf::Vector2i windowCenter(windowSize.x / 2, windowSize.y / 2);
+    sf::Vector2i windowCenter(
+        static_cast<int>(windowSize.x) / 2,
+        static_cast<int>(windowSize.y) / 2);
     sf::Mouse::setPosition(windowCenter, window);
 
     // Initialize ImGui
-    ImGui::SFML::Init(window);
+    bool imgui_initialized = ImGui::SFML::Init(window);
+
+    if(!imgui_initialized)
+    {
+        throw std::runtime_error("Could not initialize ImGui-SFML");
+    }
 
     // Initiallize GLEW
     GLenum glewErr = glewInit();
@@ -85,7 +91,9 @@ void Application::processInput()
 {
     // Update mouse input
     sf::Vector2u windowSize = window.getSize();
-    sf::Vector2i windowCenter(windowSize.x / 2, windowSize.y / 2);
+    sf::Vector2i windowCenter(
+        static_cast<int>(windowSize.x) / 2,
+        static_cast<int>(windowSize.y) / 2);
 
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     sf::Vector2i mouseOffset = mousePosition - windowCenter;
@@ -96,12 +104,12 @@ void Application::processInput()
         sf::Mouse::setPosition(windowCenter, window);
 
         // Update camera with mouse input
-        camera.moveYaw(mouseOffset.x * mouseSensitivity);
-        camera.movePitch(-mouseOffset.y * mouseSensitivity);
+        camera.moveYaw(static_cast<float>(mouseOffset.x) * mouseSensitivity);
+        camera.movePitch(static_cast<float>(-mouseOffset.y) * mouseSensitivity);
     }
 
     // Handle window events
-    sf::Event event;
+    sf::Event event {};
     while (window.pollEvent(event))
     {
         if(uiOpen)
@@ -115,8 +123,13 @@ void Application::processInput()
         else if (event.type == sf::Event::Resized)
         {
             // Adjust the viewport when the window is resized
-            glViewport(0, 0, event.size.width, event.size.height);
-            camera.updateAspectRatio(event.size.width, event.size.height);
+            glViewport(0, 0,
+                static_cast<GLsizei>(event.size.width),
+                static_cast<GLsizei>(event.size.height));
+
+            camera.updateAspectRatio(
+                static_cast<int>(event.size.width),
+                static_cast<int>(event.size.height));
         }
         else if (event.type == sf::Event::KeyPressed)
         {
@@ -135,13 +148,13 @@ void Application::processInput()
             }
             else if(key == sf::Keyboard::Up)
             {
-                int subdivisions = sphere.getSubdivisionLevel();
+                unsigned int subdivisions = sphere.getSubdivisionLevel();
                 sphere.subdivide(subdivisions + 1);
                 sphere.sendBufferData();
             }
             else if(key == sf::Keyboard::Down)
             {
-                int subdivisions = sphere.getSubdivisionLevel();
+                unsigned int subdivisions = sphere.getSubdivisionLevel();
 
                 if (subdivisions > 0)
                 {
@@ -236,7 +249,7 @@ void Application::menu()
     ImGui::NewLine();
     ImGui::PushItemWidth(100);
 
-    int subdivisions = sphere.getSubdivisionLevel();
+    int subdivisions = static_cast<int>(sphere.getSubdivisionLevel());
     if (ImGui::InputInt("Subdivisions", &subdivisions, 1, 1))
     {
         subdivisions = std::max(subdivisions, 0);
@@ -256,8 +269,8 @@ void Application::menu()
     { 
         ImGui::NewLine();
 
-        int sectors = sphere.getSectors();
-        int stacks = sphere.getStacks();
+        int sectors = static_cast<int>(sphere.getSectors());
+        int stacks = static_cast<int>(sphere.getStacks());
 
         if (ImGui::InputInt("Sectors", &sectors, 1, 1) ||
             ImGui::InputInt("Stacks", &stacks, 1, 1))
@@ -310,13 +323,13 @@ void Application::menu()
     ImGui::NewLine();
 
     size_t numVertices = sphere.getVertexCount();
-    float vertexMemoryMB = numVertices * 3 * sizeof(float) / 1000.0f / 1000.0f;
+    float vertexMemoryMB = static_cast<float>(numVertices * 3 * sizeof(float)) / 1000.0f / 1000.0f;
     
     size_t numTriangles = sphere.getTriangleCount();
-    float triangleMemoryMB = numTriangles * 3 * sizeof(unsigned int) / 1000.0f / 1000.0f;
+    float triangleMemoryMB = static_cast<float>(numTriangles * 3 * sizeof(unsigned int)) / 1000.0f / 1000.0f;
 
-    ImGui::Text("Vertices: %d (%.4f MB)", numVertices, vertexMemoryMB);
-    ImGui::Text("Triangles: %d (%.4f MB)", numTriangles, triangleMemoryMB);
+    ImGui::Text("Vertices: %zu (%.4f MB)", numVertices, vertexMemoryMB);
+    ImGui::Text("Triangles: %zu (%.4f MB)", numTriangles, triangleMemoryMB);
 
     ImGui::PopItemWidth();
     ImGui::End();
@@ -372,7 +385,9 @@ void Application::updateUIState()
     {
         // Close UI
         sf::Vector2u windowSize = window.getSize();
-        sf::Vector2i windowCenter(windowSize.x / 2, windowSize.y / 2);
+        sf::Vector2i windowCenter(
+            static_cast<int>(windowSize.x) / 2,
+            static_cast<int>(windowSize.y) / 2);
 
         mousePositionUI = sf::Mouse::getPosition(window);
         sf::Mouse::setPosition(windowCenter, window);

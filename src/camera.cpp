@@ -87,9 +87,9 @@ void Camera::moveRelative2D(glm::vec2 delta)
 
 void Camera::update()
 {
-	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	direction.y = sin(glm::radians(pitch));
-	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	direction.x = static_cast<float>(cos(glm::radians(yaw)) * cos(glm::radians(pitch)));
+	direction.y = static_cast<float>(sin(glm::radians(pitch)));
+	direction.z = static_cast<float>(sin(glm::radians(yaw)) * cos(glm::radians(pitch)));
 	direction = glm::normalize(direction);
 
 	right = glm::normalize(glm::cross(direction, worldUp));
@@ -111,14 +111,11 @@ glm::mat4 Camera::getProjectionMatrix() const
 
 void Camera::updateCameraVectors()
 {
-	double yawRadians = glm::radians(yaw);
-	double pitchRadians = glm::radians(pitch);
-
 	// Update direction vector
 	direction = glm::vec3 {};
-	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	direction.y = sin(glm::radians(pitch));
-	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	direction.x = static_cast<float>(cos(glm::radians(yaw)) * cos(glm::radians(pitch)));
+	direction.y = static_cast<float>(sin(glm::radians(pitch)));
+	direction.z = static_cast<float>(sin(glm::radians(yaw)) * cos(glm::radians(pitch)));
 	direction = glm::normalize(direction);
 
 	// Recalculate right and up vectors
