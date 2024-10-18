@@ -1,5 +1,0 @@
-/home/sam/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/sam/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/ninja -DCMAKE_TOOLCHAIN_FILE=/home/sam/.vcpkg-clion/vcpkg/scripts/buildsystems/vcpkg.cmake -G Ninja -S /home/sam/src/cpp/sphere-renderer -B /home/sam/src/cpp/sphere-renderer/cmake-build-debug
--- Found SFML 2.6.1 in /home/sam/.vcpkg-clion/vcpkg/installed/x64-linux/share/sfml
--- Configuring done (0.1s)
--- Generating done (0.0s)
--- Build files have been written to: /home/sam/src/cpp/sphere-renderer/cmake-build-debug

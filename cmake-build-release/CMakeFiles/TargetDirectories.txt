@@ -1,3 +1,0 @@
-/home/sam/src/cpp/sphere-renderer/cmake-build-release/CMakeFiles/sphere-renderer.dir
-/home/sam/src/cpp/sphere-renderer/cmake-build-release/CMakeFiles/edit_cache.dir
-/home/sam/src/cpp/sphere-renderer/cmake-build-release/CMakeFiles/rebuild_cache.dir
