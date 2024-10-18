@@ -23,7 +23,7 @@ public:
 	void updateUIState();
 
 private:
-	Sphere sphere;
+	Sphere sphere {};
 
 	sf::RenderWindow window {};
 	GLenum drawMode = GL_LINE;
@@ -50,5 +50,5 @@ private:
 	bool uiOpen = false;
 	sf::Vector2i mousePositionUI {defaultWidth / 2, defaultHeight / 2};
 
-	sf::Clock clock;
+	sf::Clock clock {};
 };

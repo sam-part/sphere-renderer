@@ -89,23 +89,26 @@ void Application::run()
 
 void Application::processInput()
 {
-    // Update mouse input
-    sf::Vector2u windowSize = window.getSize();
-    sf::Vector2i windowCenter(
-        static_cast<int>(windowSize.x) / 2,
-        static_cast<int>(windowSize.y) / 2);
-
-    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-    sf::Vector2i mouseOffset = mousePosition - windowCenter;
-
-    // Only use/set mouse input if UI is not open
-    if (!uiOpen)
+    // Update mouse input only if window is focused
+    if (window.hasFocus())
     {
-        sf::Mouse::setPosition(windowCenter, window);
+        sf::Vector2u windowSize = window.getSize();
+        sf::Vector2i windowCenter(
+            static_cast<int>(windowSize.x) / 2,
+            static_cast<int>(windowSize.y) / 2);
 
-        // Update camera with mouse input
-        camera.moveYaw(static_cast<float>(mouseOffset.x) * mouseSensitivity);
-        camera.movePitch(static_cast<float>(-mouseOffset.y) * mouseSensitivity);
+        sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+        sf::Vector2i mouseOffset = mousePosition - windowCenter;
+
+        // Only use/set mouse input if UI is not open
+        if (!uiOpen)
+        {
+            sf::Mouse::setPosition(windowCenter, window);
+
+            // Update camera with mouse input
+            camera.moveYaw(static_cast<float>(mouseOffset.x) * mouseSensitivity);
+            camera.movePitch(static_cast<float>(-mouseOffset.y) * mouseSensitivity);
+        }
     }
 
     // Handle window events
